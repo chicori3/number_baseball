@@ -18,6 +18,12 @@ public class Referee {
         }
     }
 
+    private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {
+        this.ballStatus = new BallStatus((int) computerBalls.stream()
+                .filter(userBalls::contains)
+                .count());
+    }
+
     private void isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
         if (computerBalls.get(index).equals(userBalls.get(index))) {
             ballStatus.increaseStrikeCount();
@@ -36,9 +42,4 @@ public class Referee {
         return ballStatus.isNothing();
     }
 
-    private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {
-        this.ballStatus = new BallStatus((int) computerBalls.stream()
-                .filter(userBalls::contains)
-                .count());
-    }
 }
