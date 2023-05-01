@@ -13,10 +13,14 @@ public class Referee {
             return;
         }
 
-        for (int i = 0; i < computerBalls.size(); i++) {
-            if (computerBalls.get(i).equals(userBalls.get(i))) {
-                ballStatus.increaseStrikeCount();
-            }
+        for (int index = 0; index < computerBalls.size(); index++) {
+            isStrike(computerBalls, userBalls, index);
+        }
+    }
+
+    private void isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+        if (computerBalls.get(index).equals(userBalls.get(index))) {
+            ballStatus.increaseStrikeCount();
         }
     }
 
