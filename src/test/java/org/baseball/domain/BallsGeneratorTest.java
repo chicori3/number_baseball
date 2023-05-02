@@ -13,8 +13,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.baseball.domain.ConsoleMessage.WRONG_NUMBER_LENGTH;
-import static org.baseball.domain.ConsoleMessage.WRONG_NUMBER_RANGE;
+import static org.baseball.domain.Message.WRONG_NUMBER_LENGTH;
+import static org.baseball.domain.Message.WRONG_NUMBER_RANGE;
 
 public class BallsGeneratorTest {
 

@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.baseball.domain.ConsoleMessage.*;
+import static org.baseball.domain.Message.*;
 
 public class BallsGenerator {
     public List<Integer> randomBallsGenerate() {

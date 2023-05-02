@@ -57,7 +57,7 @@ public class InputViewTest {
 
         assertThatThrownBy(() -> inputView.restart())
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(ConsoleMessage.WRONG_RESTART_INPUT);
+                .hasMessageContaining(Message.WRONG_RESTART_INPUT);
     }
 
     private static BufferedReader setBufferedReader(String input) {
