@@ -20,7 +20,6 @@ public class Referee {
         return this.ballStatus;
     }
 
-
     private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {
         this.ballStatus = new BallStatus((int) computerBalls.stream()
                 .filter(userBalls::contains)
