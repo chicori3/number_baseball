@@ -24,10 +24,10 @@ public class RefereeTest {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
 
-        referee.judge(computerBalls, userBalls);
+        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(3);
-        assertThat(referee.getBallCount()).isEqualTo(0);
+        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(3);
+        assertThat(judgedBallStatus.getBallCount()).isEqualTo(0);
     }
 
     @Test
@@ -36,10 +36,10 @@ public class RefereeTest {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(2, 3, 1);
 
-        referee.judge(computerBalls, userBalls);
+        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(0);
-        assertThat(referee.getBallCount()).isEqualTo(3);
+        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(0);
+        assertThat(judgedBallStatus.getBallCount()).isEqualTo(3);
     }
 
     @Test
@@ -48,10 +48,10 @@ public class RefereeTest {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 3, 4);
 
-        referee.judge(computerBalls, userBalls);
+        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(1);
-        assertThat(referee.getBallCount()).isEqualTo(1);
+        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(1);
+        assertThat(judgedBallStatus.getBallCount()).isEqualTo(1);
     }
 
     @Test
@@ -60,9 +60,9 @@ public class RefereeTest {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(4, 5, 6);
 
-        referee.judge(computerBalls, userBalls);
+        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.isNothing()).isTrue();
+        assertThat(judgedBallStatus.isNothing()).isTrue();
     }
 }
 
