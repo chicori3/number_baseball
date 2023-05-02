@@ -6,18 +6,18 @@ public class Referee {
 
     private BallStatus ballStatus;
 
-    public BallStatus judge(List<Integer> computerBalls, List<Integer> userBalls) {
+    public String judge(List<Integer> computerBalls, List<Integer> userBalls) {
         calculateBallCount(computerBalls, userBalls);
 
         if (this.ballStatus.isNothing()) {
-            return this.ballStatus;
+            return Message.NOTHING;
         }
 
         for (int index = 0; index < computerBalls.size(); index++) {
             ifStrikeThenIncrease(computerBalls, userBalls, index);
         }
 
-        return this.ballStatus;
+        return this.ballStatus.getResult();
     }
 
     private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {

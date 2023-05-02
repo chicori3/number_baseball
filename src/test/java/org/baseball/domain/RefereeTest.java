@@ -19,50 +19,47 @@ public class RefereeTest {
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 3, BALL의 카운트는 0이어야 한다")
+    @DisplayName("3 스트라이크가 반환되어야 한다")
     void onlyStrike() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
 
-        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
+        String result = referee.judge(computerBalls, userBalls);
 
-        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(3);
-        assertThat(judgedBallStatus.getBallCount()).isEqualTo(0);
+        assertThat(result).isEqualTo("3 스트라이크");
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 0, BALL의 카운트는 3이어야 한다")
+    @DisplayName("3 볼이 반환되어야 한다")
     void onlyBall() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(2, 3, 1);
 
-        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
+        String result = referee.judge(computerBalls, userBalls);
 
-        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(0);
-        assertThat(judgedBallStatus.getBallCount()).isEqualTo(3);
+        assertThat(result).isEqualTo("3 볼");
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 1, BALL의 카운트는 1이어야 한다")
+    @DisplayName("1 볼 1 스트라이크가 반환되어야 한다")
     void oneStrike_oneBall() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 3, 4);
 
-        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
+        String result = referee.judge(computerBalls, userBalls);
 
-        assertThat(judgedBallStatus.getStrikeCount()).isEqualTo(1);
-        assertThat(judgedBallStatus.getBallCount()).isEqualTo(1);
+        assertThat(result).isEqualTo("1 볼 1 스트라이크");
     }
 
     @Test
-    @DisplayName("STRIKE, BALL의 카운트가 없는 경우 isNothing이 true를 반환해야 한다")
+    @DisplayName("낫싱이 반환되어야 한다")
     void nothing() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(4, 5, 6);
 
-        BallStatus judgedBallStatus = referee.judge(computerBalls, userBalls);
+        String result = referee.judge(computerBalls, userBalls);
 
-        assertThat(judgedBallStatus.isNothing()).isTrue();
+        assertThat(result).isEqualTo("낫싱");
     }
 }
 
