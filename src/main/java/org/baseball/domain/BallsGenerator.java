@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.baseball.domain.ConsoleMessage.*;
+
 public class BallsGenerator {
     public List<Integer> randomBallsGenerate() {
         SecureRandom random = new SecureRandom();
@@ -36,7 +38,7 @@ public class BallsGenerator {
                 .filter(number -> number < 1 || number > 9)
                 .findAny()
                 .ifPresent((number) -> {
-                    throw new IllegalArgumentException("1~9 사이의 숫자를 입력해주세요.");
+                    throw new IllegalArgumentException(WRONG_NUMBER_RANGE);
                 });
     }
 
@@ -44,13 +46,13 @@ public class BallsGenerator {
         Set<Integer> numbersSet = convertArrToSet(numbers);
 
         if (numbers.length < numbersSet.size()) {
-            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+            throw new IllegalArgumentException(NUMBER_DUPLICATED);
         }
     }
 
     private void isValidLength(int[] numbers) {
         if (numbers.length != 3) {
-            throw new IllegalArgumentException("3개의 숫자를 입력해주세요.");
+            throw new IllegalArgumentException(WRONG_NUMBER_LENGTH);
         }
     }
 
