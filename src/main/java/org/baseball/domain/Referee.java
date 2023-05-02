@@ -14,7 +14,7 @@ public class Referee {
         }
 
         for (int index = 0; index < computerBalls.size(); index++) {
-            isStrike(computerBalls, userBalls, index);
+            ifStrikeThenIncrease(computerBalls, userBalls, index);
         }
 
         return this.ballStatus;
@@ -26,9 +26,13 @@ public class Referee {
                 .count());
     }
 
-    private void isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
-        if (computerBalls.get(index).equals(userBalls.get(index))) {
+    private void ifStrikeThenIncrease(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+        if (isStrike(computerBalls, userBalls, index)) {
             ballStatus.increaseStrikeCount();
         }
+    }
+
+    private boolean isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+        return computerBalls.get(index).equals(userBalls.get(index));
     }
 }
