@@ -12,14 +12,13 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 class ResultViewTest {
 
-    private ResultView resultView = new ConsoleResultView();
-    private BallStatus ballStatus;
+    private final ResultView resultView = new ConsoleResultView();
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2})
     @DisplayName("3 스트라이크가 아니라면 FAIL을 반환한다")
     void return_fail(int strikeCount) {
-        setBallStatus(strikeCount);
+        BallStatus ballStatus = setBallStatus(strikeCount);
 
         GameStatus concluded = resultView.conclude(ballStatus);
 
@@ -29,7 +28,7 @@ class ResultViewTest {
     @Test
     @DisplayName("3 스트라이크라면 CLEAR를 반환한다")
     void return_clear() {
-        setBallStatus(3);
+        BallStatus ballStatus = setBallStatus(3);
 
         GameStatus concluded = resultView.conclude(ballStatus);
 
@@ -39,15 +38,16 @@ class ResultViewTest {
     @Test
     @DisplayName("게임을 종료한다")
     void exit() {
-        assertThatCode(() -> resultView.exit())
+        assertThatCode(resultView::exit)
                 .doesNotThrowAnyException();
     }
 
     private BallStatus setBallStatus(int strikeCount) {
-        ballStatus = new BallStatus(3);
+        BallStatus ballStatus = new BallStatus(3);
         for (int i = 0; i < strikeCount; i++) {
             ballStatus.increaseStrikeCount();
         }
+
         return ballStatus;
     }
 }
