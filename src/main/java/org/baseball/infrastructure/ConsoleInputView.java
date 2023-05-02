@@ -14,6 +14,7 @@ public class ConsoleInputView implements InputView {
         this.br = br;
     }
 
+    @Override
     public int[] readUserInput() {
         System.out.println(ConsoleMessage.INPUT_NUMBER);
         try {
@@ -34,6 +35,7 @@ public class ConsoleInputView implements InputView {
         return userNumbers;
     }
 
+    @Override
     public GameStatus restart() {
         System.out.println(ConsoleMessage.GAME_RESTART);
         try {

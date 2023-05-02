@@ -10,6 +10,7 @@ public class ConsoleResultView implements ResultView {
         return showResult(ballStatus);
     }
 
+    @Override
     public void exit() {
         end();
     }
