@@ -21,6 +21,17 @@ public class GameClient {
     }
 
     public void play() {
+        progress();
+
+        if (isRestart()) {
+            progress();
+            return;
+        }
+
+        resultView.exit();
+    }
+
+    private void progress() {
         List<Integer> computerBalls = ballsGenerator.randomBallsGenerate();
 
         while (isClear()) {
@@ -28,13 +39,6 @@ public class GameClient {
             BallStatus judgedBallStatus = referee.judge(computerBalls, ballsGenerator.customBallsGenerate(userNumbers));
             this.gameStatus = resultView.conclude(judgedBallStatus);
         }
-
-        if (isRestart()) {
-            play();
-            return;
-        }
-
-        resultView.exit();
     }
 
     private boolean isClear() {
