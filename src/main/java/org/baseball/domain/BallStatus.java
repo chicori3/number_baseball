@@ -21,6 +21,14 @@ public class BallStatus {
         return ballCount;
     }
 
+    public boolean hasStrikeCount() {
+        return this.strikeCount > 0;
+    }
+
+    public boolean allStrike() {
+        return this.strikeCount == 3;
+    }
+
     public boolean isNothing() {
         return this.strikeCount == 0 && this.ballCount == 0;
     }
