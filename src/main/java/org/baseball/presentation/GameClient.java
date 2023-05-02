@@ -1,6 +1,9 @@
 package org.baseball.presentation;
 
-import org.baseball.domain.*;
+import org.baseball.domain.BallStatus;
+import org.baseball.domain.BallsGenerator;
+import org.baseball.domain.GameStatus;
+import org.baseball.domain.Referee;
 
 import java.util.List;
 
@@ -20,21 +23,26 @@ public class GameClient {
     public void play() {
         List<Integer> computerBalls = ballsGenerator.randomBallsGenerate();
 
-        while (gameStatus != GameStatus.CLEAR) {
+        while (isClear()) {
             int[] userNumbers = inputView.readUserInput();
             BallStatus judgedBallStatus = referee.judge(computerBalls, ballsGenerator.customBallsGenerate(userNumbers));
             this.gameStatus = resultView.conclude(judgedBallStatus);
         }
 
-        if (gameStatus == GameStatus.CLEAR) {
-            gameStatus = inputView.restart();
-        }
-
-        if (gameStatus == GameStatus.END) {
-            resultView.exit();
+        if (isRestart()) {
+            play();
             return;
         }
 
-        play();
+        resultView.exit();
+    }
+
+    private boolean isClear() {
+        return gameStatus == GameStatus.CLEAR;
+    }
+
+    private boolean isRestart() {
+        gameStatus = inputView.restart();
+        return gameStatus == GameStatus.START;
     }
 }
