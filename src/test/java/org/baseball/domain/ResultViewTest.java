@@ -1,5 +1,7 @@
 package org.baseball.domain;
 
+import org.baseball.infrastructure.ConsoleResultView;
+import org.baseball.presentation.ResultView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 class ResultViewTest {
 
-    private ResultView resultView = new ResultView();
+    private ResultView resultView = new ConsoleResultView();
     private BallStatus ballStatus;
 
     @ParameterizedTest
@@ -40,7 +42,7 @@ class ResultViewTest {
         assertThatCode(() -> resultView.exit())
                 .doesNotThrowAnyException();
     }
-    
+
     private BallStatus setBallStatus(int strikeCount) {
         ballStatus = new BallStatus(3);
         for (int i = 0; i < strikeCount; i++) {

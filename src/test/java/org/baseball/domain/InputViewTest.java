@@ -1,5 +1,7 @@
 package org.baseball.domain;
 
+import org.baseball.infrastructure.ConsoleInputView;
+import org.baseball.presentation.InputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +14,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class InputViewTest {
 
+    private InputView inputView;
+
     @Test
     @DisplayName("사용자 입력을 받는다.")
     void readUserInput() {
         BufferedReader br = setBufferedReader("123");
-        InputView inputView = new InputView(br);
+        inputView = new ConsoleInputView(br);
 
         int[] userInputNumbers = inputView.readUserInput();
 
@@ -27,7 +31,7 @@ public class InputViewTest {
     @DisplayName("사용자가 1을 입력하면 GameStatus가 START여야 한다.")
     void restart() {
         BufferedReader br = setBufferedReader("1");
-        InputView inputView = new InputView(br);
+        inputView = new ConsoleInputView(br);
 
         GameStatus gameStatus = inputView.restart();
 
@@ -38,7 +42,7 @@ public class InputViewTest {
     @DisplayName("사용자가 2를 입력하면 GameStatus가 END여야 한다.")
     void end() {
         BufferedReader br = setBufferedReader("2");
-        InputView inputView = new InputView(br);
+        inputView = new ConsoleInputView(br);
 
         GameStatus gameStatus = inputView.restart();
 
@@ -49,7 +53,7 @@ public class InputViewTest {
     @DisplayName("사용자가 1 또는 2를 입력하지 않으면 IllegalArgumentException이 발생한다.")
     void wrongRestartInput() {
         BufferedReader br = setBufferedReader("3");
-        InputView inputView = new InputView(br);
+        inputView = new ConsoleInputView(br);
 
         assertThatThrownBy(() -> inputView.restart())
                 .isInstanceOf(IllegalArgumentException.class)

@@ -1,12 +1,16 @@
-package org.baseball.domain;
+package org.baseball.infrastructure;
+
+import org.baseball.domain.ConsoleMessage;
+import org.baseball.domain.GameStatus;
+import org.baseball.presentation.InputView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class InputView {
+public class ConsoleInputView implements InputView {
     private final BufferedReader br;
 
-    public InputView(BufferedReader br) {
+    public ConsoleInputView(BufferedReader br) {
         this.br = br;
     }
 

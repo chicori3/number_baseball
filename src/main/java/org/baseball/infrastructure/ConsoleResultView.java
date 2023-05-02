@@ -1,6 +1,11 @@
-package org.baseball.domain;
+package org.baseball.infrastructure;
 
-public class ResultView {
+import org.baseball.domain.BallStatus;
+import org.baseball.domain.ConsoleMessage;
+import org.baseball.domain.GameStatus;
+import org.baseball.presentation.ResultView;
+
+public class ConsoleResultView implements ResultView {
     public GameStatus conclude(BallStatus ballStatus) {
         return showResult(ballStatus);
     }
@@ -47,10 +52,6 @@ public class ResultView {
 
     private void gameClear() {
         System.out.println(ConsoleMessage.GAME_CLEAR);
-    }
-
-    private void restart() {
-        System.out.println(ConsoleMessage.GAME_RESTART);
     }
 
     private void end() {
