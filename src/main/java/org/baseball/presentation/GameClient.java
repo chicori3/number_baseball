@@ -1,28 +1,24 @@
-package org.baseball.domain;
+package org.baseball.presentation;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import org.baseball.domain.*;
+
 import java.util.List;
 
 public class GameClient {
-    private final InputView inputView = new InputView(new BufferedReader(new InputStreamReader(System.in)));
-    private final ResultView resultView = new ResultView();
-    private final Referee referee;
-    private final BallsGenerator ballsGenerator;
+    private final InputView inputView;
+    private final ResultView resultView;
+    private final Referee referee = new Referee();
+    private final BallsGenerator ballsGenerator = new BallsGenerator();
     private GameStatus gameStatus;
 
 
-    public GameClient(Referee referee, BallsGenerator ballsGenerator) {
-        this.referee = referee;
-        this.ballsGenerator = ballsGenerator;
-    }
-
-    public List<Integer> setUp() {
-        return ballsGenerator.randomBallsGenerate();
+    public GameClient(InputView inputView, ResultView resultView) {
+        this.inputView = inputView;
+        this.resultView = resultView;
     }
 
     public void play() {
-        List<Integer> computerBalls = setUp();
+        List<Integer> computerBalls = ballsGenerator.randomBallsGenerate();
 
         while (gameStatus != GameStatus.CLEAR) {
             int[] userNumbers = inputView.readUserInput();
