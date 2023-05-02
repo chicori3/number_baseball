@@ -20,7 +20,6 @@ public class ResultView {
 
         if (ballStatus.allStrike()) {
             gameClear();
-            restart();
             return GameStatus.CLEAR;
         }
 
