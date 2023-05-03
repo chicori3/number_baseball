@@ -6,24 +6,24 @@ public class Referee {
 
     private BallStatus ballStatus;
 
-    public String judge(List<Integer> computerBalls, List<Integer> userBalls) {
+    public Result judge(List<Integer> computerBalls, List<Integer> userBalls) {
         calculateBallCount(computerBalls, userBalls);
+        calculateStrikeCount(computerBalls, userBalls);
 
-        if (this.ballStatus.isNothing()) {
-            return Message.NOTHING;
-        }
-
-        for (int index = 0; index < computerBalls.size(); index++) {
-            ifStrikeThenIncrease(computerBalls, userBalls, index);
-        }
-
-        return this.ballStatus.getResult();
+        return this.ballStatus.conclude();
     }
+
 
     private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {
         this.ballStatus = new BallStatus((int) computerBalls.stream()
                 .filter(userBalls::contains)
                 .count());
+    }
+
+    private void calculateStrikeCount(List<Integer> computerBalls, List<Integer> userBalls) {
+        for (int index = 0; index < computerBalls.size(); index++) {
+            ifStrikeThenIncrease(computerBalls, userBalls, index);
+        }
     }
 
     private void ifStrikeThenIncrease(List<Integer> computerBalls, List<Integer> userBalls, int index) {

@@ -13,18 +13,22 @@ public class BallStatus {
         this.ballCount--;
     }
 
-    public String getResult() {
+    public Result conclude() {
         StringBuilder sb = new StringBuilder();
 
         if (this.strikeCount == 3) {
-            return allStrike(sb);
+            return Result.clear(allStrike(sb));
+        }
+
+        if (isNothing()) {
+            return Result.fail(Message.NOTHING);
         }
 
         if (this.ballCount == 3) {
-            return allBall(sb);
+            return Result.fail(allBall(sb));
         }
 
-        return notOnlyStrike(sb);
+        return Result.fail(notOnlyStrike(sb));
     }
 
     private String allStrike(StringBuilder sb) {
@@ -47,12 +51,6 @@ public class BallStatus {
                 .append(Message.STRIKE)
                 .toString();
     }
-
-
-    public boolean hasStrikeCount() {
-        return this.strikeCount > 0;
-    }
-
 
     public boolean isNothing() {
         return this.strikeCount == 0 && this.ballCount == 0;
