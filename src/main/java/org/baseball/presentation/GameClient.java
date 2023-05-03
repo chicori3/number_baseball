@@ -1,9 +1,8 @@
 package org.baseball.presentation;
 
-import org.baseball.domain.BallStatus;
 import org.baseball.domain.BallsGenerator;
-import org.baseball.domain.GameStatus;
 import org.baseball.domain.Referee;
+import org.baseball.domain.Result;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class GameClient {
     private final ResultView resultView;
     private final Referee referee = new Referee();
     private final BallsGenerator ballsGenerator = new BallsGenerator();
-    private GameStatus gameStatus;
+    private Result result = Result.start();
 
 
     public GameClient(InputView inputView, ResultView resultView) {
@@ -21,12 +20,9 @@ public class GameClient {
     }
 
     public void play() {
-        progress();
-
-        if (isRestart()) {
+        do {
             progress();
-            return;
-        }
+        } while (!result.isEnd());
 
         resultView.exit();
     }
@@ -34,19 +30,13 @@ public class GameClient {
     private void progress() {
         List<Integer> computerBalls = ballsGenerator.randomBallsGenerate();
 
-        while (isClear()) {
+        while (!result.isClear()) {
             int[] userNumbers = inputView.readUserInput();
-            BallStatus judgedBallStatus = referee.judge(computerBalls, ballsGenerator.customBallsGenerate(userNumbers));
-            this.gameStatus = resultView.conclude(judgedBallStatus);
+            result = referee.judge(computerBalls, ballsGenerator.customBallsGenerate(userNumbers));
+            resultView.showResult(result.getMessage());
         }
-    }
 
-    private boolean isClear() {
-        return gameStatus == GameStatus.CLEAR;
-    }
-
-    private boolean isRestart() {
-        gameStatus = inputView.restart();
-        return gameStatus == GameStatus.START;
+        resultView.clear();
+        result = inputView.restart();
     }
 }

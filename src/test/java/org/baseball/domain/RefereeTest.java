@@ -55,6 +55,18 @@ public class RefereeTest {
     }
 
     @Test
+    @DisplayName("0볼 2스트라이크 테스트")
+    void noBall_twoStrike() {
+        List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
+        List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 2, 4);
+
+        Result result = referee.judge(computerBalls, userBalls);
+
+        assertThat(result.getMessage()).isEqualTo("0볼 2스트라이크");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.FAIL);
+    }
+
+    @Test
     @DisplayName("낫싱 테스트")
     void nothing() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);

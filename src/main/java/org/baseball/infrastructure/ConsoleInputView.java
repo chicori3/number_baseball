@@ -1,7 +1,7 @@
 package org.baseball.infrastructure;
 
-import org.baseball.domain.ConsoleMessage;
-import org.baseball.domain.GameStatus;
+import org.baseball.domain.Message;
+import org.baseball.domain.Result;
 import org.baseball.presentation.InputView;
 
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public int[] readUserInput() {
-        System.out.println(ConsoleMessage.INPUT_NUMBER);
+        System.out.println(Message.INPUT_NUMBER);
         try {
             return getUserNumbers();
         } catch (IOException e) {
@@ -36,8 +36,8 @@ public class ConsoleInputView implements InputView {
     }
 
     @Override
-    public GameStatus restart() {
-        System.out.println(ConsoleMessage.GAME_RESTART);
+    public Result restart() {
+        System.out.println(Message.GAME_RESTART);
         try {
             return getUserRestart();
         } catch (IOException e) {
@@ -45,14 +45,14 @@ public class ConsoleInputView implements InputView {
         }
     }
 
-    private GameStatus getUserRestart() throws IOException {
+    private Result getUserRestart() throws IOException {
         String input = br.readLine();
         if (input.equals("1")) {
-            return GameStatus.START;
+            return Result.start();
         }
         if (input.equals("2")) {
-            return GameStatus.END;
+            return Result.end(Message.GAME_END);
         }
-        throw new IllegalArgumentException(ConsoleMessage.WRONG_RESTART_INPUT);
+        throw new IllegalArgumentException(Message.WRONG_RESTART_INPUT);
     }
 }

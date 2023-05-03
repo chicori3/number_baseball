@@ -17,7 +17,7 @@ public class InputViewTest {
     private InputView inputView;
 
     @Test
-    @DisplayName("사용자 입력을 받는다.")
+    @DisplayName("사용자 입력을 받는다")
     void readUserInput() {
         BufferedReader br = setBufferedReader("123");
         inputView = new ConsoleInputView(br);
@@ -28,29 +28,28 @@ public class InputViewTest {
     }
 
     @Test
-    @DisplayName("사용자가 1을 입력하면 GameStatus가 START여야 한다.")
+    @DisplayName("사용자가 1을 입력하면 Status가 START여야 한다")
     void restart() {
         BufferedReader br = setBufferedReader("1");
         inputView = new ConsoleInputView(br);
 
-        GameStatus gameStatus = inputView.restart();
+        Result result = inputView.restart();
 
-        assertThat(gameStatus).isEqualTo(GameStatus.START);
+        assertThat(result.getStatus()).isEqualTo(Result.Status.PLAYING);
     }
 
     @Test
-    @DisplayName("사용자가 2를 입력하면 GameStatus가 END여야 한다.")
+    @DisplayName("사용자가 2를 입력하면 Status가 END여야 한다")
     void end() {
         BufferedReader br = setBufferedReader("2");
         inputView = new ConsoleInputView(br);
 
-        GameStatus gameStatus = inputView.restart();
-
-        assertThat(gameStatus).isEqualTo(GameStatus.END);
+        Result result = inputView.restart();
+        assertThat(result.isEnd()).isTrue();
     }
 
     @Test
-    @DisplayName("사용자가 1 또는 2를 입력하지 않으면 IllegalArgumentException이 발생한다.")
+    @DisplayName("사용자가 1 또는 2를 입력하지 않으면 IllegalArgumentException이 발생한다")
     void wrongRestartInput() {
         BufferedReader br = setBufferedReader("3");
         inputView = new ConsoleInputView(br);
