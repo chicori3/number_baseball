@@ -20,15 +20,15 @@ public class BallStatus {
             return Result.clear(allStrike(sb));
         }
 
-        if (isNothing()) {
-            return Result.fail(Message.NOTHING);
-        }
-
         if (this.ballCount == 3) {
             return Result.fail(allBall(sb));
         }
 
-        return Result.fail(notOnlyStrike(sb));
+        if (isNothing()) {
+            return Result.fail(Message.NOTHING);
+        }
+
+        return Result.fail(result(sb));
     }
 
     private String allStrike(StringBuilder sb) {
@@ -43,7 +43,7 @@ public class BallStatus {
                 .toString();
     }
 
-    private String notOnlyStrike(StringBuilder sb) {
+    private String result(StringBuilder sb) {
         return sb.append(this.ballCount)
                 .append(Message.BALL)
                 .append(" ")
