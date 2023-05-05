@@ -36,7 +36,7 @@ public class GameClient {
             resultView.showResult(result.getMessage());
         }
 
-        resultView.clear();
+        resultView.gameClear();
         result = inputView.restart();
     }
 }

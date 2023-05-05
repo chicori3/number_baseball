@@ -11,7 +11,7 @@ public class ConsoleResultView implements ResultView {
     }
 
     @Override
-    public void clear() {
+    public void gameClear() {
         System.out.println(Message.GAME_CLEAR);
     }
 

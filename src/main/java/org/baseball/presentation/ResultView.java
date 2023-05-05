@@ -4,7 +4,7 @@ public interface ResultView {
 
     void showResult(String result);
 
-    void clear();
+    void gameClear();
 
     void exit();
 }
