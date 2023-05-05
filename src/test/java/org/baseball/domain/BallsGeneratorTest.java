@@ -13,6 +13,8 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.baseball.domain.Message.WRONG_NUMBER_LENGTH;
+import static org.baseball.domain.Message.WRONG_NUMBER_RANGE;
 
 public class BallsGeneratorTest {
 
@@ -45,7 +47,7 @@ public class BallsGeneratorTest {
     void customGenerate_wrongLength(int... numbers) {
         assertThatCode(() -> ballsGenerator.customBallsGenerate(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("3개의 숫자를 입력해주세요.");
+                .hasMessage(WRONG_NUMBER_LENGTH);
     }
 
     @ParameterizedTest
@@ -54,7 +56,7 @@ public class BallsGeneratorTest {
     void customGenerate_wrongNumber(int[] numbers) {
         assertThatCode(() -> ballsGenerator.customBallsGenerate(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("1~9 사이의 숫자를 입력해주세요.");
+                .hasMessage(WRONG_NUMBER_RANGE);
     }
 
     static Stream<Arguments> provideWrongLengthNumbers() {

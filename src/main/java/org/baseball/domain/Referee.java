@@ -6,17 +6,13 @@ public class Referee {
 
     private BallStatus ballStatus;
 
-    public void judge(List<Integer> computerBalls, List<Integer> userBalls) {
+    public Result judge(List<Integer> computerBalls, List<Integer> userBalls) {
         calculateBallCount(computerBalls, userBalls);
+        calculateStrikeCount(computerBalls, userBalls);
 
-        if (this.ballStatus.isNothing()) {
-            return;
-        }
-
-        for (int index = 0; index < computerBalls.size(); index++) {
-            isStrike(computerBalls, userBalls, index);
-        }
+        return this.ballStatus.conclude();
     }
+
 
     private void calculateBallCount(List<Integer> computerBalls, List<Integer> userBalls) {
         this.ballStatus = new BallStatus((int) computerBalls.stream()
@@ -24,22 +20,19 @@ public class Referee {
                 .count());
     }
 
-    private void isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
-        if (computerBalls.get(index).equals(userBalls.get(index))) {
+    private void calculateStrikeCount(List<Integer> computerBalls, List<Integer> userBalls) {
+        for (int index = 0; index < computerBalls.size(); index++) {
+            increaseIfStrike(computerBalls, userBalls, index);
+        }
+    }
+
+    private void increaseIfStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+        if (isStrike(computerBalls, userBalls, index)) {
             ballStatus.increaseStrikeCount();
         }
     }
 
-    public int getStrikeCount() {
-        return ballStatus.getStrikeCount();
+    private boolean isStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+        return computerBalls.get(index).equals(userBalls.get(index));
     }
-
-    public int getBallCount() {
-        return ballStatus.getBallCount();
-    }
-
-    public boolean isNothing() {
-        return ballStatus.isNothing();
-    }
-
 }

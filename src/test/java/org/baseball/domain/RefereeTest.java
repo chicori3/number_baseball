@@ -19,50 +19,63 @@ public class RefereeTest {
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 3, BALL의 카운트는 0이어야 한다")
+    @DisplayName("3 스트라이크 테스트")
     void onlyStrike() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
 
-        referee.judge(computerBalls, userBalls);
+        Result result = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(3);
-        assertThat(referee.getBallCount()).isEqualTo(0);
+        assertThat(result.getMessage()).isEqualTo("3스트라이크");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.CLEAR);
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 0, BALL의 카운트는 3이어야 한다")
+    @DisplayName("3 볼 테스트")
     void onlyBall() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(2, 3, 1);
 
-        referee.judge(computerBalls, userBalls);
+        Result result = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(0);
-        assertThat(referee.getBallCount()).isEqualTo(3);
+        assertThat(result.getMessage()).isEqualTo("3볼");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.FAIL);
     }
 
     @Test
-    @DisplayName("STRIKE의 카운트는 1, BALL의 카운트는 1이어야 한다")
+    @DisplayName("1볼 1스트라이크 테스트")
     void oneStrike_oneBall() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 3, 4);
 
-        referee.judge(computerBalls, userBalls);
+        Result result = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.getStrikeCount()).isEqualTo(1);
-        assertThat(referee.getBallCount()).isEqualTo(1);
+        assertThat(result.getMessage()).isEqualTo("1볼 1스트라이크");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.FAIL);
     }
 
     @Test
-    @DisplayName("STRIKE, BALL의 카운트가 없는 경우 isNothing이 true를 반환해야 한다")
+    @DisplayName("0볼 2스트라이크 테스트")
+    void noBall_twoStrike() {
+        List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
+        List<Integer> userBalls = ballsGenerator.customBallsGenerate(1, 2, 4);
+
+        Result result = referee.judge(computerBalls, userBalls);
+
+        assertThat(result.getMessage()).isEqualTo("0볼 2스트라이크");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.FAIL);
+    }
+
+    @Test
+    @DisplayName("낫싱 테스트")
     void nothing() {
         List<Integer> computerBalls = ballsGenerator.customBallsGenerate(1, 2, 3);
         List<Integer> userBalls = ballsGenerator.customBallsGenerate(4, 5, 6);
 
-        referee.judge(computerBalls, userBalls);
+        Result result = referee.judge(computerBalls, userBalls);
 
-        assertThat(referee.isNothing()).isTrue();
+        assertThat(result.getMessage()).isEqualTo("낫싱");
+        assertThat(result.getStatus()).isEqualTo(Result.Status.FAIL);
     }
 }
 
