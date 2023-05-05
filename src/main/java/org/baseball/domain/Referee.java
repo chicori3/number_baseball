@@ -22,11 +22,11 @@ public class Referee {
 
     private void calculateStrikeCount(List<Integer> computerBalls, List<Integer> userBalls) {
         for (int index = 0; index < computerBalls.size(); index++) {
-            ifStrikeThenIncrease(computerBalls, userBalls, index);
+            increaseIfStrike(computerBalls, userBalls, index);
         }
     }
 
-    private void ifStrikeThenIncrease(List<Integer> computerBalls, List<Integer> userBalls, int index) {
+    private void increaseIfStrike(List<Integer> computerBalls, List<Integer> userBalls, int index) {
         if (isStrike(computerBalls, userBalls, index)) {
             ballStatus.increaseStrikeCount();
         }
